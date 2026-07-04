@@ -2,4 +2,4 @@ killall picom
 
 "$@"
 
-picom
+picom -b

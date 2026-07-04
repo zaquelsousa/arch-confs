@@ -1,4 +1,3 @@
--- desativa o file manager padra do nvim
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
@@ -7,7 +6,11 @@ vim.opt.termguicolors = true
 
 vim.g.mapleader = " "
 
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+    filters = {
+        git_ignored = false,
+    },
+})
 vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 
 
@@ -16,8 +19,29 @@ require('nvim-web-devicons').setup {
 }
 
 
+require('lualine').setup({
+    options = { theme = 'dracula' }
+})
+
+
+local builtin = require('telescope.builtin')
+
+--vim.keymap.set('n', '<leader>f', builtin.find_files, { desc = 'Telescope find files' })
+
+vim.keymap.set('n', '<leader>f', function()
+  builtin.find_files({
+    hidden = true,
+    no_ignore = true,
+  })
+end, { desc = 'Telescope find files' })
+
+require('telescope').setup()
 require("lsp")
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, {desc="show diagnostic"})
+
+
+require('csvview').setup()
+
+--vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, {desc="show diagnostic"})
 -- Configuração opcional (antes de aplicar o tema)
 -- Ativando o tema
 vim.cmd[[colorscheme tokyonight-moon]]
@@ -26,59 +50,8 @@ vim.cmd[[colorscheme tokyonight-moon]]
 vim.keymap.set('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
 
-
--- coisa de debugacao
--- nvim-dap config
-local dap = require('dap')
-
-dap.adapters.lldb = {
-  type = 'executable',
-  command = '/usr/sbin/lldb-dap', -- Confirma se esse bin existe
-  name = 'lldb'
-}
-
-dap.configurations.c = {
-  {
-    name = "Launch C app",
-    type = "lldb",
-    request = "launch",
-    program = function()
-      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-    end,
-    cwd = '${workspaceFolder}',
-    stopOnEntry = false,
-    args = {},
-    runInTerminal = false,
-  },
-}
-
-
--- nvim-dap-ui config
-local dapui = require("dapui")
-dapui.setup()
-
--- Auto abrir/fechar UI
-require("dap").listeners.after.event_initialized["dapui_config"] = function()
-  dapui.open()
-end
---require("dap").listeners.before.event_terminated["dapui_config"] = function()
-  --dapui.close()
---end
---require("dap").listeners.before.event_exited["dapui_config"] = function()
-  --dapui.close()
---end
-
-
-vim.keymap.set('n', '<F5>', function() require'dap'.continue() end)
-vim.keymap.set('n', '<F10>', function() require'dap'.step_over() end)
-vim.keymap.set('n', '<F11>', function() require'dap'.step_into() end)
-vim.keymap.set('n', '<F12>', function() require'dap'.step_out() end)
-vim.keymap.set('n', '<Leader>b', function() require'dap'.toggle_breakpoint() end)
-vim.keymap.set('n', '<Leader>B', function() require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end)
-vim.keymap.set('n', '<Leader>lp', function() require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
-vim.keymap.set('n', '<Leader>dr', function() require'dap'.repl.open() end)
-vim.keymap.set('n', '<Leader>du', function() require'dapui'.toggle() end)
-
+-- mr render
+require('render-markdown').setup()
 -- some ui confs
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
@@ -86,4 +59,11 @@ vim.o.expandtab = true
 
 vim.opt.number = true
 vim.opt.relativenumber = true
+
+
+--vim.filetype.add({
+--    extension = {
+--        asm = "fasm",
+--    },
+--})
 

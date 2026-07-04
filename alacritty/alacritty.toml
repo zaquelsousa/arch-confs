@@ -6,3 +6,7 @@ dynamic_title = false
 x = 4
 y = 4
 
+
+[font]
+normal = { family = "MesloLGS Nerd Font" }
+size = 12

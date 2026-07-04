@@ -1,0 +1,21 @@
+[submodule "nvim/pack/plugins/start/nvim-jdtls"]
+	path = nvim/pack/plugins/start/nvim-jdtls
+	url = https://github.com/mfussenegger/nvim-jdtls
+[submodule "nvim/pack/plugins/start/plenary.nvim"]
+	path = nvim/pack/plugins/start/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim
+[submodule "nvim/pack/plugins/start/telescope.nvim"]
+	path = nvim/pack/plugins/start/telescope.nvim
+	url = https://github.com/nvim-telescope/telescope.nvim
+[submodule "nvim/pack/plugins/start/render-markdown.nvim"]
+	path = nvim/pack/plugins/start/render-markdown.nvim
+	url = https://github.com/MeanderingProgrammer/render-markdown.nvim
+[submodule "nvim/pack/plugins/start/nvim-lspconfig"]
+	path = nvim/pack/plugins/start/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig
+[submodule "nvim/pack/plugins/start/csvview.nvim"]
+	path = nvim/pack/plugins/start/csvview.nvim
+	url = https://github.com/hat0uma/csvview.nvim
+[submodule "nvim/pack/plugins/start/lualine.nvim"]
+	path = nvim/pack/plugins/start/lualine.nvim
+	url = https://github.com/nvim-lualine/lualine.nvim
